@@ -1,0 +1,2048 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cotton Cloud — Modern Home &amp; Lifestyle</title>
+    <meta name="description" content="Cotton Cloud — luxurious homeware, cushions, ceramics, glassware and smart care guides.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root{--beige:#f5efe7;--muted:#6b6b6b;}
+        body{background:linear-gradient(180deg,var(--beige) 0%, #fbf8f6 100%);color:var(--muted);font-family:Inter,Arial;}
+        .brand-logo{height:48px;object-fit:contain}
+        .card-rc{border:none;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,0.06);}
+        .product-card{border-radius:12px;overflow:hidden}
+        .inspiration-grid img{width:100%;height:170px;object-fit:cover;border-radius:12px}
+        .post{background:white;padding:1rem;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.04);}
+        .footer{background:#f2eee8;padding:2rem 0}
+        .vote-btn{cursor:pointer;border:none;background:transparent;font-size:1.1rem}
+        .avatar-badge{width:36px;height:36px;border-radius:50%;background:#ddd;display:inline-flex;align-items:center;justify-content:center}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#" data-route="home">
+            <img src="/images/cc-logo-black.png" alt="Cotton Cloud" class="brand-logo me-2">
+            <strong style="color:var(--muted)"></strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                <li class="nav-item"><a class="nav-link" href="#" data-route="home">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#" data-route="inspiration">Inspiration</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-route="about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-route="shop">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-route="newsfeed">Newsfeed</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-route="care">Care Guide</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-route="contact">Contact</a></li>
+            </ul>
+            <div class="d-flex ms-3 align-items-center">
+                <div id="greeting" class="me-3"><div class="d-flex align-items-center gap-2"><div class="avatar-badge">T</div><div><small class="text-muted">Hi,</small><div><strong>tshwaro</strong></div></div></div></div>
+                <button class="btn btn-outline-dark me-2" id="cart-btn" data-route="cart"><i class="bi bi-cart"></i> <span id="cart-count">0</span></button>
+                <button class="btn btn-outline-secondary me-2" id="orders-btn" data-route="orders"><i class="bi bi-truck"></i> Track Orders</button>
+                <button class="btn btn-outline-primary" id="signin-btn">Account</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Sign In / Register Modal -->
+<div class="modal fade" id="signinModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="signin-form" onsubmit="return false;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign In / Create Account (Demo)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="signin-alert" class="alert alert-info small">Create a demo account or sign in — this keeps your cart &amp; orders linked to your username on this device.</div>
+                    <div class="mb-2">
+                        <label class="form-label">Username</label>
+                        <input id="user-username" class="form-control" placeholder="e.g. kutlo" required="">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Email</label>
+                        <input id="user-email" type="email" class="form-control" placeholder="you@example.com" required="">
+                    </div>
+                    <div class="form-text small">This is a demo sign-in stored locally. For production, integrate a secure backend and password flow.</div>
+                </div>
+                <div class="modal-footer">
+                    <button id="signout-btn" type="button" class="btn btn-outline-danger" style="display:none">Sign out</button>
+                    <button id="signin-submit" class="btn btn-primary">Sign In / Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<main class="container my-5" id="app">
+    <!-- HOME -->
+
+    <section id="page-home" class="page" style="display: none;">
+        <div class="row align-items-center hero">
+            <div class="col-lg-6 hero-text">
+                <h1 class="display-5">Cotton Cloud — modern home, softened.</h1>
+                <p class="lead">Luxurious homewares and thoughtful care guides. Discover recipes, inspiration and a community of makers.</p>
+                <div class="mt-4">
+                    <a href="#" class="btn btn-dark btn-lg me-2" data-route="shop">Shop Now</a>
+                    <a href="#" class="btn btn-outline-secondary btn-lg active" data-route="inspiration">Explore Inspiration</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner rounded-4 overflow-hidden shadow-sm">
+                        <div class="carousel-item active"><img src="/images/media-result-20251022-f0e9d189-59af-4097-ab25-49aeda28923f.png" class="d-block w-100" alt="Slide 1"></div>
+                        <div class="carousel-item"><img src="/images/media-result-20251022-6e782d03-7862-43b0-a91f-64ecf1aaa268.png" class="d-block w-100" alt="Slide 2"></div>
+                        <div class="carousel-item"><img src="/images/media-result-20251022-5bec8215-47ae-4dae-b54d-69827cc33f77 2.png" class="d-block w-100" alt="Slide 3"></div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h3>Explore categories</h3>
+            <div class="row gy-4 mt-3">
+                <div id="category-list" class="d-flex gap-3 flex-wrap"><button class="category-badge">Cushions</button><button class="category-badge">Cutlery</button><button class="category-badge">Ceramics</button><button class="category-badge">Amenities</button><button class="category-badge">Glassware</button><button class="category-badge">Towels</button><button class="category-badge">Bedding</button><button class="category-badge">Lifestyle</button></div>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>Inspiration Hub</h3>
+                <a href="#" data-route="inspiration" class="text-decoration-none active">Open Inspiration →</a>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-3 mt-3 inspiration-grid" id="inspiration-preview"><div class="col">
+                <div class="p-2 card-rc">
+                    <img src="images/French-toast-4-hero-800x450.webp">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <strong>Vanilla French Toast</strong>
+                        <a href="#" class="text-decoration-none insp-explore-btn" data-link="recipe:r1">Explore</a>
+                    </div>
+                </div></div><div class="col">
+                <div class="p-2 card-rc">
+                    <img src="images/Strawberry-Daiquiri-3.jpg">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <strong>Strawberry Daiquiri</strong>
+                        <a href="#" class="text-decoration-none insp-explore-btn" data-link="recipe:r2">Explore</a>
+                    </div>
+                </div></div><div class="col">
+                <div class="p-2 card-rc">
+                    <img src="images/cb22_secondary4.webp.jpeg">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <strong>Table Setting for 4 (Cutlery &amp; Glassware)</strong>
+                        <a href="#" class="text-decoration-none insp-explore-btn" data-link="recipe:r3">Explore</a>
+                    </div>
+                </div></div><div class="col">
+                <div class="p-2 card-rc">
+                    <img src="images/Bookshelf-Styling-1.jpg">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <strong>Ceramics Styling Ideas</strong>
+                        <a href="#" class="text-decoration-none insp-explore-btn" data-link="recipe:r4">Explore</a>
+                    </div>
+                </div></div><div class="col">
+                <div class="p-2 card-rc">
+                    <img src="images/cushion_care_header.webp.jpeg">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <strong>Cushion Care &amp; Styling</strong>
+                        <a href="#" class="text-decoration-none insp-explore-btn" data-link="recipe:r5">Explore</a>
+                    </div>
+                </div></div></div>
+        </div>
+    </section>
+
+    <!-- INSPIRATION -->
+    <section id="page-inspiration" class="page" style="display: block;">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Inspiration Hub</h2>
+            <div>Search: <input id="insp-search" class="form-control form-control-sm" style="width:220px"></div>
+        </div>
+
+        <!-- Add Inspiration / Recipe -->
+        <div class="card p-3 mt-3 mb-4">
+            <h5>Add Inspiration / Recipe</h5>
+            <div class="row g-2">
+                <div class="col-md-4">
+                    <input id="insp-title" class="form-control" placeholder="Title">
+                </div>
+
+                <div class="col-md-3">
+                    <select id="insp-category" class="form-select">
+                        <option value="recipes">Recipes</option>
+                        <option value="cushions">Cushions</option>
+                        <option value="ceramics">Ceramics</option>
+                        <option value="cutlery">Cutlery</option>
+                        <option value="glassware">Glassware</option>
+                        <option value="towels">Towels</option>
+                        <option value="bedding">Bedding</option>
+                        <option value="amenities">Amenities</option>
+                        <option value="lifestyle">Lifestyle</option>
+                    </select>
+                </div>
+
+                <!-- Image upload per item -->
+                <div class="col-md-3">
+                    <input type="file" id="insp-image-file" accept="image/*" class="form-control">
+                </div>
+
+                <!-- Optional: Form preview -->
+                <div class="col-md-2">
+                    <img id="insp-image-preview" src="images/placeholder.png" class="img-fluid rounded" alt="Preview">
+                </div>
+
+                <div class="col-md-12 mt-2">
+                    <textarea id="insp-desc" class="form-control" placeholder="Description or recipe text"></textarea>
+                </div>
+
+                <div class="col-md-12 mt-2">
+                    <button id="insp-add-btn" class="btn btn-dark">Add to Inspiration</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inspiration Items -->
+        <div class="row mt-3" id="inspiration-list"><div class="col-md-6 mb-3">
+            <div class="card product-card p-3">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="/images/inspo/french-toast.jpg" class="img-fluid rounded" alt="Vanilla French Toast">
+                    </div>
+
+
+                    <div class="col-7 ps-3">
+                        <h5>Vanilla French Toast</h5>
+                        <p class="mb-2 small text-muted">recipes</p>
+                        <p class="mb-2">Ingredients:
+                            - 4 slices brioche
+                            - 2 eggs
+                            - 100ml milk
+                            - 1 tsp vanilla
+
+                            Method:
+                            1. Whisk eggs, milk and vanilla.
+                            2. Soak </p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="recipe:r1" data-id="i_r1">Explore more</button>
+                            <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="i_r1">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card product-card p-3">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="/images/Strawberry-Daiquiri-3.jpg" class="img-fluid rounded" alt="Strawberry Daiquiri">
+                    </div>
+
+
+                    <div class="col-7 ps-3">
+                        <h5>Strawberry Daiquiri</h5>
+                        <p class="mb-2 small text-muted">recipes</p>
+                        <p class="mb-2">Ingredients:
+                            - 60ml white rum
+                            - 30ml lime juice
+                            - 45ml strawberry syrup
+
+                            Method:
+                            Blend with ice until smooth. Garnish wi</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="recipe:r2" data-id="i_r2">Explore more</button>
+                            <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="i_r2">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card product-card p-3">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="/images/cb22_secondary4.webp.jpeg" class="img-fluid rounded" alt="Table Setting for 4 (Cutlery &amp; Glassware)">
+                    </div>
+
+
+                    <div class="col-7 ps-3">
+                        <h5>Table Setting for 4 (Cutlery &amp; Glassware)</h5>
+                        <p class="mb-2 small text-muted">cutlery</p>
+                        <p class="mb-2">Guide:
+                            1. Forks on left, knives on right.
+                            2. Use tumbler for water and wine glass for wine.
+                            3. Keep napkin folded on the</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="recipe:r3" data-id="i_r3">Explore more</button>
+                            <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="i_r3">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card product-card p-3">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="/images/Bookshelf-Styling-1.jpg" class="img-fluid rounded" alt="Ceramics Styling Ideas">
+                    </div>
+
+
+                    <div class="col-7 ps-3">
+                        <h5>Ceramics Styling Ideas</h5>
+                        <p class="mb-2 small text-muted">ceramics</p>
+                        <p class="mb-2">Styling:
+                            - Group ceramics by shape and tone.
+                            - Use soft linen underneath to add texture.
+                            - Highlight one tall piece as a</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="recipe:r4" data-id="i_r4">Explore more</button>
+                            <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="i_r4">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card product-card p-3">
+                <div class="row g-0">
+                    <div class="col-5">
+                        <img src="/images/cushion_care_header.webp.jpeg" class="img-fluid rounded" alt="Cushion Care &amp; Styling">
+                    </div>
+
+
+                    <div class="col-7 ps-3">
+                        <h5>Cushion Care &amp; Styling</h5>
+                        <p class="mb-2 small text-muted">cushions</p>
+                        <p class="mb-2">Tips:
+                            - Rotate cushions weekly.
+                            - Use inner pads with 20% larger fill for a plump look.
+                            - Mix textures, keep colours coh</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="recipe:r5" data-id="i_r5">Explore more</button>
+                            <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="i_r5">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div></div></div>
+    </section>
+
+    <script>
+        /* ===========================
+           CATEGORY HEADERS
+           =========================== */
+        const CATEGORY_IMAGES = {
+            recipes: 'images/recipes-header.jpg',
+            cushions: 'images/cushions-header.jpg',
+            ceramics: 'images/ceramics-header.jpg',
+            cutlery: 'images/cutlery-header.jpg',
+            glassware: 'images/glassware-header.jpg',
+            towels: 'images/towels-header.jpg',
+            bedding: 'images/bedding-header.jpg',
+            amenities: 'images/amenities-header.jpg',
+            lifestyle: 'images/lifestyle-header.jpg'
+        };
+
+        /* ===========================
+           SAMPLE DATA
+           =========================== */
+        function getInspirations() {
+            // Load from localStorage if exists
+            return JSON.parse(localStorage.getItem('inspirations')) || [
+                {
+                    id: '1',
+                    title: 'Soft Cushions',
+                    category: 'cushions',
+                    desc: 'Perfect for your living room.',
+                    image: 'images/cushions1.jpg',
+                    link: 'recipe:101'
+                },
+                {
+                    id: '2',
+                    title: 'Elegant Cutlery',
+                    category: 'cutlery',
+                    desc: 'Luxury cutlery for dining.',
+                    image: 'images/cutlery1.jpg',
+                    link: 'recipe:102'
+                }
+            ];
+        }
+
+        function saveInspirations(arr) {
+            localStorage.setItem('inspirations', JSON.stringify(arr));
+        }
+
+        /* ===========================
+           RENDER INSPIRATION
+           =========================== */
+        function renderInspiration(selectedCategory = 'all') {
+            const list = document.getElementById('inspiration-list');
+            list.innerHTML = '';
+
+            const insp = getInspirations();
+            const filtered = selectedCategory === 'all' ? insp : insp.filter(i => i.category === selectedCategory);
+
+            // Show category main image if available
+            if (selectedCategory !== 'all' && CATEGORY_IMAGES[selectedCategory]) {
+                const header = document.createElement('div');
+                header.className = 'mb-3';
+                header.innerHTML = `<img src="${CATEGORY_IMAGES[selectedCategory]}" class="img-fluid rounded" alt="${selectedCategory}">`;
+                list.appendChild(header);
+            }
+
+            if (filtered.length === 0) {
+                list.innerHTML += '<p class="text-muted">No inspirations yet for this category.</p>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 mb-3';
+                col.innerHTML = `
+      <div class="card product-card p-3">
+        <div class="row g-0">
+          <div class="col-5">
+            <img src="${item.image || CATEGORY_IMAGES[item.category] || 'images/placeholder.png'}" class="img-fluid rounded" alt="${item.title}">
+          </div>
+          <div class="col-7 ps-3">
+            <h5>${item.title}</h5>
+            <p class="mb-2 small text-muted">${item.category}</p>
+            <p class="mb-2">${item.desc || ''}</p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="${item.link}" data-id="${item.id}">Explore more</button>
+              <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="${item.id}">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+                list.appendChild(col);
+            });
+
+            // Attach handlers
+            document.querySelectorAll('.insp-open-btn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const link = b.dataset.link || '';
+                    if (link.startsWith('recipe:')) routeTo('recipe-detail', { id: link.split(':')[1] });
+                    else routeTo('inspiration');
+                });
+            });
+
+            document.querySelectorAll('.insp-remove-btn').forEach(b => {
+                b.addEventListener('click', () => {
+                    const id = b.dataset.id;
+                    const arr = getInspirations().filter(x => x.id !== id);
+                    saveInspirations(arr);
+                    renderInspiration(selectedCategory);
+                });
+            });
+        }
+
+        /* ===========================
+           IMAGE PREVIEW ON UPLOAD
+           =========================== */
+        const imageInput = document.getElementById('insp-image-file');
+        const imagePreview = document.getElementById('insp-image-preview');
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                imagePreview.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        /* ===========================
+           ADD INSPIRATION ITEM
+           =========================== */
+        document.getElementById('insp-add-btn').addEventListener('click', () => {
+            const title = document.getElementById('insp-title').value.trim();
+            const category = document.getElementById('insp-category').value;
+            const desc = document.getElementById('insp-desc').value.trim();
+            let image = imagePreview.src; // use uploaded image
+            if (image.includes('placeholder.png')) image = CATEGORY_IMAGES[category] || image;
+
+            if (!title) return alert('Please enter a title');
+
+            const arr = getInspirations();
+            arr.push({
+                id: Date.now().toString(),
+                title,
+                category,
+                desc,
+                image,
+                link: ''
+            });
+            saveInspirations(arr);
+
+            // Reset form
+            document.getElementById('insp-title').value = '';
+            document.getElementById('insp-desc').value = '';
+            document.getElementById('insp-image-file').value = '';
+            imagePreview.src = 'images/placeholder.png';
+
+            renderInspiration(category);
+        });
+
+        /* ===========================
+           INITIAL RENDER
+           =========================== */
+        renderInspiration('all');
+    </script>
+
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page" style="display:none">
+        <h2>About Cotton Cloud</h2>
+        <p>Cotton Cloud is a curated boutique for luxurious homewares — cushions, ceramics, glassware and lifestyle pieces.</p>
+    </section>
+
+    <!-- SHOP -->
+    <section id="page-shop" class="page" style="display:none">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Shop</h2>
+            <div>
+                <select id="filter-category" class="form-select form-select-sm">
+                    <option value="all">All categories</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-4" id="product-grid"></div>
+    </section>
+
+    <!-- CATEGORY -->
+    <section id="page-category" class="page" style="display:none">
+        <div id="category-header" class="d-flex justify-content-between align-items-center">
+            <h2 id="category-title"></h2>
+            <div><button class="btn btn-outline-secondary" data-route="shop">Back to Shop</button></div>
+        </div>
+        <div class="row mt-3" id="category-products"></div>
+    </section>
+
+    <!-- RECIPES -->
+    <section id="page-recipes" class="page" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Recipes &amp; Guides</h2>
+            <div><input id="recipes-filter" class="form-control form-control-sm" placeholder="Search recipes..." style="width:260px"></div>
+        </div>
+        <div class="row mt-3" id="recipes-list"><div class="col-md-6 mb-3">
+            <div class="card p-3">
+                <div class="d-flex gap-3">
+                    <img src="/images/French-toast-4-hero-800x450.webp" style="width:120px;height:80px;object-fit:cover;border-radius:8px;">
+                    <div><h5>Vanilla French Toast</h5><p class="text-muted small">recipes</p><p class="mb-2">Ingredients:
+                        - 4 slices brioche
+                        - 2 eggs
+                        - 100ml milk
+                        - 1 tsp vanilla
+
+                        Method:
+                        1. Whisk eggs, milk and vanilla.
+                        2. Soak ...</p><div><button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="r1">Open</button></div></div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card p-3">
+                <div class="d-flex gap-3">
+                    <img src="/images/Strawberry-Daiquiri-3.jpg" style="width:120px;height:80px;object-fit:cover;border-radius:8px;">
+                    <div><h5>Strawberry Daiquiri</h5><p class="text-muted small">recipes</p><p class="mb-2">Ingredients:
+                        - 60ml white rum
+                        - 30ml lime juice
+                        - 45ml strawberry syrup
+
+                        Method:
+                        Blend with ice until smooth. Garnish wi...</p><div><button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="r2">Open</button></div></div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card p-3">
+                <div class="d-flex gap-3">
+                    <img src="/images/cb22_secondary4.webp.jpeg" style="width:120px;height:80px;object-fit:cover;border-radius:8px;">
+                    <div><h5>Table Setting for 4 (Cutlery &amp; Glassware)</h5><p class="text-muted small">cutlery</p><p class="mb-2">Guide:
+                        1. Forks on left, knives on right.
+                        2. Use tumbler for water and wine glass for wine.
+                        3. Keep napkin folded on the...</p><div><button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="r3">Open</button></div></div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card p-3">
+                <div class="d-flex gap-3">
+                    <img src="/images/Strawberry-Daiquiri-3.jpg" style="width:120px;height:80px;object-fit:cover;border-radius:8px;">
+                    <div><h5>Ceramics Styling Ideas</h5><p class="text-muted small">ceramics</p><p class="mb-2">Styling:
+                        - Group ceramics by shape and tone.
+                        - Use soft linen underneath to add texture.
+                        - Highlight one tall piece as a...</p><div><button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="r4">Open</button></div></div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card p-3">
+                <div class="d-flex gap-3">
+                    <img src="/images/Bookshelf-Styling-1.jpg" style="width:120px;height:80px;object-fit:cover;border-radius:8px;">
+                    <div><h5>Cushion Care &amp; Styling</h5><p class="text-muted small">cushions</p><p class="mb-2">Tips:
+                        - Rotate cushions weekly.
+                        - Use inner pads with 20% larger fill for a plump look.
+                        - Mix textures, keep colours coh...</p><div><button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="r5">Open</button></div></div>
+                </div>
+            </div></div><div class="col-md-6 mb-3">
+            <div class="card p-3">
+                <div class="d-flex gap-3">
+                    <img src="/images/Towels.jpg" style="width:120px;height:80px;object-fit:cover;border-radius:8px;">
+                    <div><h5>Towel Washing Best Practice</h5><p class="text-muted small">towels</p><p class="mb-2">Guide:
+                        - Wash on warm with mild detergent.
+                        - Avoid fabric softener.
+                        - Tumble dry low or air dry....</p><div><button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="r6">Open</button></div></div>
+                </div>
+            </div></div></div>
+    </section>
+
+    <!-- RECIPE DETAIL -->
+    <section id="page-recipe-detail" class="page" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 id="recipe-title">Strawberry Daiquiri</h2>
+            <div><button class="btn btn-outline-secondary" data-route="recipes">Back to Recipes</button></div>
+        </div>
+        <div class="mt-3 card p-3" id="recipe-content">
+            <img src="images/French-toast-4-hero-800x450.webp" style="max-width:240px;border-radius:10px;float:right;margin-left:16px">
+            <h5 class="mt-0">Category: recipes</h5>
+            <pre style="white-space:pre-wrap;font-family:inherit">Ingredients:
+- 60ml white rum
+- 30ml lime juice
+- 45ml strawberry syrup
+
+Method:
+Blend with ice until smooth. Garnish with strawberry.</pre>
+        </div>
+    </section>
+
+    <!-- CART -->
+    <section id="page-cart" class="page" style="display:none">
+        <h2>Your Cart (Demo)</h2>
+        <div id="cart-contents"></div>
+        <div class="mt-3">
+            <button id="checkout-btn" class="btn btn-dark">Demo Checkout</button>
+            <button id="cart-track-btn" class="btn btn-outline-secondary ms-2" data-route="orders">View Orders</button>
+        </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section id="page-orders" class="page" style="display:none">
+        <h2>Your Orders</h2>
+        <div class="mb-3 d-flex gap-2">
+            <input id="order-search" class="form-control" placeholder="Enter order ID to track (or leave empty to show all)">
+            <button id="order-search-btn" class="btn btn-dark">Track</button>
+        </div>
+        <div id="orders-list"></div>
+    </section>
+
+    <!-- NEWSFEED -->
+
+    <section id="page-newsfeed" class="page" style="display:none">
+        <h2>Community Newsfeed</h2>
+        <div class="card p-3 mb-3">
+            <h5>Create a post</h5>
+            <div class="mb-2"><textarea id="post-text" class="form-control" rows="2" placeholder="What's on your mind?"></textarea></div>
+            <div class="d-flex gap-2">
+                <input type="file" id="post-image" accept="image/*">
+                <button id="post-submit" class="btn btn-dark">Post</button>
+            </div>
+        </div>
+      <div id="poll-creator" class="card p-3 mb-3" style="background-color:#f8f5f0; border:none;">
+        <h5>Create a Poll</h5>
+        <input id="poll-question" class="form-control mb-2" placeholder="Enter your poll question">
+        <input id="poll-opt1" class="form-control mb-2" placeholder="Option 1">
+        <input id="poll-opt2" class="form-control mb-2" placeholder="Option 2">
+        <input id="poll-opt3" class="form-control mb-2" placeholder="Option 3 (optional)">
+        <button class="btn btn-dark w-100" onclick="createPoll()">Create Poll</button>
+      </div>
+
+      <div id="feed-list"></div>
+    </section>
+
+
+    <!-- CARE GUIDE -->
+    <section id="page-care" class="page" style="display:none">
+        <h2>Care Guide</h2>
+        <div id="care-list" class="mt-3 row row-cols-1 row-cols-md-2 g-3"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="page-contact" class="page" style="display:none">
+        <h2>Contact</h2>
+        <form id="contact-form" class="mt-3" onsubmit="return false;">
+            <div class="mb-3"><label class="form-label">Name</label><input required="" id="contact-name" class="form-control"></div>
+            <div class="mb-3"><label class="form-label">Email</label><input required="" id="contact-email" type="email" class="form-control"></div>
+            <div class="mb-3"><label class="form-label">Message</label><textarea required="" id="contact-message" class="form-control" rows="4"></textarea></div>
+            <button id="contact-send" class="btn btn-dark">Send Message</button>
+        </form>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <strong>Cotton Cloud</strong><br><small>Luxurious homeware — soften your home.</small>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <a class="text-decoration-none" href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="bi bi-facebook fs-3"></i></a>
+            <a class="text-decoration-none" href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="bi bi-instagram fs-3"></i></a>
+            <a class="text-decoration-none" href="https://wa.me/" target="_blank" aria-label="WhatsApp"><i class="bi bi-whatsapp fs-3"></i></a>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    /* ===========================
+       Data seeds + storage keys
+       =========================== */
+    const CATEGORIES = [
+        {id:'cushions', title:'Cushions'},{id:'cutlery', title:'Cutlery'},{id:'ceramics', title:'Ceramics'},
+        {id:'amenities', title:'Amenities'},{id:'glassware', title:'Glassware'},{id:'towels', title:'Towels'},
+        {id:'bedding', title:'Bedding'},{id:'lifestyle', title:'Lifestyle'}
+    ];
+
+    const PRODUCTS = [
+        {id:'p1', category:'cushions', title:'Linen Cloud Cushion', price:29.99, stock:12, images:['/images/Pillow-Inner.jpg'], desc:'Soft linen cushion, 45x45cm.'},
+        {id:'p2', category:'ceramics', title:'Stoneware Mug', price:14.50, stock:34, images:['/images/WITH-OTHERS-1.webp'], desc:'Handmade stoneware mug.'},
+        {id:'p3', category:'glassware', title:'Tall Tumbler', price:12.00, stock:20, images:['/images/Rose-Quartz-Glow-STANLEY-1.18L.webp'], desc:'Elegant drinking glass.'},
+        {id:'p4', category:'cutlery', title:'Brushed Cutlery Set', price:39.99, stock:8, images:['/images/cb22_secondary4.webp.jpeg'], desc:'4-piece cutlery set.'},
+        {id:'p5', category:'towels', title:'Organic Bath Towel', price:24.00, stock:15, images:['/images/Towels.jpg'], desc:'Plush absorbent towel.'},
+        {id:'p6', category:'amenities', title:'Diffuser', price:30.00, stock:15, images:['/images/media-result-20251022-6e782d03-7862-43b0-a91f-64ecf1aaa268 copy.png'], desc:'Sweet Diffuser.'},
+        {id:'p3', category:'bedding', title:'linen bedding', price:42.00, stock:20, images:['/images/media-result-20251022-d6e07d12-fa4e-4871-8fd1-102898867eb7.png'], desc:'Linen bedding.'},
+        {id:'p4', category:'lifestyle', title:'Fieldbar', price:39.99, stock:8, images:['/images/TOP-VIEW-LID-OPEN-W-CONTENTS.webp'], desc:'Fielbar.'},
+    ];
+
+    const CARE_GUIDE = {
+        cushions: 'Shake regularly and spot-clean. Use a mild detergent and air dry. Keep out of direct sunlight to avoid fading.',
+        cutlery: 'Handwash recommended to preserve finish. Dry immediately to avoid water spots.',
+        ceramics: 'Avoid thermal shock. Handwash preferred. Use non-abrasive sponge.',
+        glassware: 'Wash with warm soapy water, avoid sudden temperature changes.',
+        towels: 'Wash before first use. Tumble-dry low for fluffiness. Avoid fabric softeners.',
+        bedding: 'Follow label instructions. Use gentle cycle and low heat.',
+        amenities: 'Store in a dry place. Follow product label.',
+        lifestyle: 'Refer to individual product tags for care instructions.'
+    };
+
+    /* LocalStorage keys */
+    const KEYS = {
+        inspirations: 'cc_inspirations_v1',
+        recipes: 'cc_recipes_v1',
+        orders: 'cc_orders_v1',
+        feed: 'cc_feed',
+        users: 'cc_users_v1', // store user profiles
+        currentUser: 'cc_current_user_v1'
+    };
+
+    /* Seed recipes & inspirations & feed if empty */
+    const RECIPES_DEFAULT = [
+        {id:'r1', title:'Vanilla French Toast', category:'recipes', image:'/images/', content:`Ingredients:\n- 4 slices brioche\n- 2 eggs\n- 100ml milk\n- 1 tsp vanilla\n\nMethod:\n1. Whisk eggs, milk and vanilla.\n2. Soak bread and fry until golden.`},
+        {id:'r2', title:'Strawberry Daiquiri', category:'recipes', image:'/images/', content:`Blend rum, lime and strawberries with ice.`},
+        {id:'r3', title:'Cushion Care & Styling', category:'cushions', image:'/images/', content:`Rotate cushions weekly. Use inner pads larger by 20%.`},
+    ];
+
+    if(!localStorage.getItem(KEYS.recipes)) localStorage.setItem(KEYS.recipes, JSON.stringify(RECIPES_DEFAULT));
+    if(!localStorage.getItem(KEYS.inspirations)) {
+        const seed = RECIPES_DEFAULT.map(r=>({id:'i_'+r.id, title:r.title, category:r.category, image:r.image, link:'recipe:'+r.id, desc:r.content.substring(0,120)}));
+        localStorage.setItem(KEYS.inspirations, JSON.stringify(seed));
+    }
+    if(!localStorage.getItem(KEYS.feed)) {
+        const seedFeed = [
+            {id:'post_1', name:'Guest', text:'Loving the new cushion textures.', time:Date.now()-86400000, image:null, votes:{}, comments:[], likes:0},
+            {id:'post_2', name:'Guest', text:'Any tips for styling ceramics?', time:Date.now()-3600000, image:null, votes:{}, comments:[], likes:0}
+        ];
+        localStorage.setItem(KEYS.feed, JSON.stringify(seedFeed));
+    }
+
+    /* ===========================
+       Helpers: users, auth, cart per-user
+       =========================== */
+    function getUsers(){ return JSON.parse(localStorage.getItem(KEYS.users)||'[]'); }
+    function saveUsers(u){ localStorage.setItem(KEYS.users, JSON.stringify(u)); }
+    function getCurrentUser(){ return JSON.parse(localStorage.getItem(KEYS.currentUser)||'null'); }
+    function setCurrentUser(user){ localStorage.setItem(KEYS.currentUser, JSON.stringify(user)); updateUIForUser(); }
+    function clearCurrentUser(){ localStorage.removeItem(KEYS.currentUser); updateUIForUser(); }
+
+    /* Cart keyed per user: cc_cart_<username> ; guest cart stored under cc_cart_guest */
+    function cartKeyForCurrentUser(){
+        const u = getCurrentUser(); return 'cc_cart_' + (u ? u.username : 'guest');
+    }
+    function getCart(){ return JSON.parse(localStorage.getItem(cartKeyForCurrentUser())||'{}'); }
+    function saveCart(c){ localStorage.setItem(cartKeyForCurrentUser(), JSON.stringify(c)); updateCartCount(); }
+    function clearCart(){ localStorage.removeItem(cartKeyForCurrentUser()); updateCartCount(); }
+
+    /* Orders stored globally but linked to username/email inside order object */
+    function getOrders(){ return JSON.parse(localStorage.getItem(KEYS.orders)||'[]'); }
+    function saveOrders(arr){ localStorage.setItem(KEYS.orders, JSON.stringify(arr)); }
+
+    /* Inspirations & recipes & feed helpers */
+    function getInspirations(){ return JSON.parse(localStorage.getItem(KEYS.inspirations)||'[]'); }
+    function saveInspirations(arr){ localStorage.setItem(KEYS.inspirations, JSON.stringify(arr)); }
+    function getRecipes(){ return JSON.parse(localStorage.getItem(KEYS.recipes)||'[]'); }
+    function saveRecipes(arr){ localStorage.setItem(KEYS.recipes, JSON.stringify(arr)); }
+    function getFeed(){ return JSON.parse(localStorage.getItem(KEYS.feed)||'[]'); }
+    function saveFeed(arr){ localStorage.setItem(KEYS.feed, JSON.stringify(arr)); }
+
+    /* ===========================
+       Router & page wiring
+       =========================== */
+    const pages = ['home','inspiration','about','shop','newsfeed','care','contact','cart','category','recipes','recipe-detail','orders'];
+    function routeTo(name, opts={}){
+        pages.forEach(p=>{ const el=document.getElementById('page-'+p); if(el) el.style.display = (p===name? 'block':'none'); });
+        document.querySelectorAll('[data-route]').forEach(a=> a.classList.toggle('active', a.getAttribute('data-route')===name));
+        if(name==='home') renderHome();
+        if(name==='inspiration') renderInspiration();
+        if(name==='shop') renderShop(opts);
+        if(name==='newsfeed') renderFeed();
+        if(name==='care') renderCare();
+        if(name==='cart') renderCart();
+        if(name==='category') renderCategory(opts.category);
+        if(name==='recipes') renderRecipes();
+        if(name==='recipe-detail') renderRecipeDetail(opts.id);
+        if(name==='orders') renderOrders();
+    }
+
+    /* nav clicks */
+    document.addEventListener('click', e=>{
+        const route = e.target.closest('[data-route]');
+        if(route){ e.preventDefault(); const data = {}; if(route.dataset.category) data.category = route.dataset.category; routeTo(route.getAttribute('data-route'), data); }
+    });
+
+    /* ===========================
+       INITIAL UI & greeting
+       =========================== */
+    function updateUIForUser(){
+        const user = getCurrentUser();
+        const greet = document.getElementById('greeting');
+        const signinBtn = document.getElementById('signin-btn');
+        if(user){
+            greet.innerHTML = `<div class="d-flex align-items-center gap-2"><div class="avatar-badge">${user.username.charAt(0).toUpperCase()}</div><div><small class="text-muted">Hi,</small><div><strong>${user.username}</strong></div></div></div>`;
+            signinBtn.textContent = 'Account';
+        } else {
+            greet.innerHTML = '';
+            signinBtn.textContent = 'Sign In';
+        }
+        updateCartCount();
+    }
+    document.getElementById('signin-btn').addEventListener('click', ()=> {
+        const modal = new bootstrap.Modal(document.getElementById('signinModal'));
+        const user = getCurrentUser();
+        document.getElementById('signout-btn').style.display = user ? 'inline-block' : 'none';
+        document.getElementById('user-username').value = user ? user.username : '';
+        document.getElementById('user-email').value = user ? user.email : '';
+        modal.show();
+    });
+
+    /* Sign in form submit (create or reuse) */
+    document.getElementById('signin-submit').addEventListener('click', ()=>{
+        const username = document.getElementById('user-username').value.trim();
+        const email = document.getElementById('user-email').value.trim();
+        if(!username || !email) return alert('Provide username and email');
+        const users = getUsers();
+        let user = users.find(u=> u.username.toLowerCase() === username.toLowerCase() || u.email.toLowerCase() === email.toLowerCase());
+        if(!user){
+            user = {username, email, created: Date.now()};
+            users.push(user);
+            saveUsers(users);
+        } else {
+            // update email or username if needed
+            user.username = username;
+            user.email = email;
+            saveUsers(users);
+        }
+        setCurrentUser(user);
+        bootstrap.Modal.getInstance(document.getElementById('signinModal')).hide();
+        alert(`Signed in as ${user.username} (demo)`);
+    });
+
+    /* Sign out button in modal */
+    document.getElementById('signout-btn').addEventListener('click', ()=>{
+        clearCurrentUser();
+        bootstrap.Modal.getInstance(document.getElementById('signinModal')).hide();
+        alert('Signed out');
+    });
+
+    /* ===========================
+   HOME: categories + inspiration preview (Explore fixed)
+   =========================== */
+    function renderHome() {
+      const container = document.getElementById('category-list');
+      container.innerHTML = '';
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'category-badge';
+        btn.textContent = cat.title;
+        btn.onclick = () => {
+          routeTo('shop', { category: cat.id });
+        };
+        container.appendChild(btn);
+      });
+
+      const inspPreview = document.getElementById('inspiration-preview');
+      inspPreview.innerHTML = '';
+      const insp = getInspirations();
+
+      insp.slice(0, 6).forEach(item => {
+        // Assign one placeholder per category
+        let img = '/images/placeholder.jpg';
+        if (item.title.toLowerCase().includes('vanilla')) {
+          img = '/images/French-toast-4-hero-800x450.webp';
+        } else if (item.title.toLowerCase().includes('strawberry')) {
+          img = '/images/Strawberry-Daiquiri-3.jpg';
+        } else if (item.title.toLowerCase().includes('cushion')) {
+          img = '/images/cushion_care_header.webp.jpeg';
+        }
+
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.innerHTML = `
+      <div class="p-2 card-rc">
+        <img src="${img}" style="width:100%;height:200px;object-fit:cover;border-radius:10px;">
+        <div class="mt-2 d-flex justify-content-between align-items-center">
+          <strong>${item.title}</strong>
+          <a href="#" class="text-decoration-none insp-explore-btn" data-link="${item.link}">
+            Explore
+          </a>
+        </div>
+      </div>
+    `;
+        inspPreview.appendChild(col);
+      });
+
+      document.querySelectorAll('.insp-explore-btn').forEach(a => {
+        a.addEventListener('click', e => {
+          e.preventDefault();
+          const link = a.dataset.link || '';
+          if (link.startsWith('recipe:'))
+            routeTo('recipe-detail', { id: link.split(':')[1] });
+          else
+            routeTo('inspiration');
+        });
+      });
+    }
+
+
+    /* ===========================
+       INSPIRATION: add items (image upload), list per category
+       =========================== */
+    function renderInspiration(selectedCategory = 'all') {
+      const list = document.getElementById('inspiration-list');
+      list.innerHTML = '';
+
+      const insp = getInspirations();
+      const filtered =
+        selectedCategory === 'all'
+          ? insp
+          : insp.filter(i => i.category === selectedCategory);
+
+      if (filtered.length === 0) {
+        list.innerHTML =
+          '<p class="text-muted">No inspirations yet for this category.</p>';
+        return;
+      }
+
+      filtered.forEach(item => {
+        // Assign one image placeholder per category
+        let img = '/images/placeholder.jpg';
+        if (item.title.toLowerCase().includes('vanilla')) {
+          img = '/images/French-toast-4-hero-800x450.webp';
+        } else if (item.title.toLowerCase().includes('strawberry')) {
+          img = '/images/Strawberry-Daiquiri-3.jpg';
+        } else if (item.title.toLowerCase().includes('cushion')) {
+          img = '/images/cushion_care_header.webp.jpeg';
+        }
+
+        const displayImg = item.image || img;
+
+        const col = document.createElement('div');
+        col.className = 'col-md-6 mb-3';
+        col.innerHTML = `
+      <div class="card product-card p-3">
+        <div class="row g-0">
+          <div class="col-5">
+            <img src="${displayImg}" class="img-fluid rounded" alt="${item.title}" style="object-fit:cover;height:140px;width:100%;border-radius:10px;">
+          </div>
+          <div class="col-7 ps-3">
+            <h5>${item.title}</h5>
+            <p class="mb-2 small text-muted">${item.category}</p>
+            <p class="mb-2">${item.desc || ''}</p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary btn-sm insp-open-btn" data-link="${item.link}" data-id="${item.id}">Explore more</button>
+              <button class="btn btn-outline-danger btn-sm insp-remove-btn" data-id="${item.id}">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+        list.appendChild(col);
+      });
+
+      // Attach handlers
+      document.querySelectorAll('.insp-open-btn').forEach(b => {
+        b.addEventListener('click', e => {
+          const link = b.dataset.link || '';
+          if (link.startsWith('recipe:'))
+            routeTo('recipe-detail', { id: link.split(':')[1] });
+          else routeTo('inspiration');
+        });
+      });
+
+      document.querySelectorAll('.insp-remove-btn').forEach(b => {
+        b.addEventListener('click', e => {
+          const id = b.dataset.id;
+          const arr = getInspirations().filter(x => x.id !== id);
+          saveInspirations(arr);
+          renderInspiration(selectedCategory);
+        });
+      });
+    }
+
+    // Category filter dropdown (optional)
+    const inspFilter = document.getElementById('insp-category-filter');
+    if (inspFilter) {
+      inspFilter.innerHTML =
+        '<option value="all">All categories</option>' +
+        CATEGORIES.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+      inspFilter.onchange = () => renderInspiration(inspFilter.value);
+    }
+
+    // Add inspiration item
+    document.getElementById('insp-add-btn').addEventListener('click', () => {
+      const title = document.getElementById('insp-title').value.trim();
+      const category = document.getElementById('insp-category').value;
+      const desc = document.getElementById('insp-desc').value.trim();
+      const file = document.getElementById('insp-image-file').files[0];
+
+      if (!title || !file || !category)
+        return alert('Please provide title, category and image');
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const arr = getInspirations();
+        const id = 'i_' + Date.now();
+        const link = '#';
+        arr.push({ id, title, category, image: e.target.result, desc, link });
+        saveInspirations(arr);
+
+        document.getElementById('insp-title').value = '';
+        document.getElementById('insp-desc').value = '';
+        document.getElementById('insp-image-file').value = '';
+        renderInspiration(category);
+        alert('Inspiration added to ' + category);
+      };
+      reader.readAsDataURL(file);
+    });
+
+
+    /* ===========================
+    SHOP: filter & product lists (Add to cart only)
+    =========================== */
+    let currentShopFilter = 'all';
+
+    function formatPriceBWP(amount) {
+        return amount.toLocaleString('en-BW', { style: 'currency', currency: 'BWP' });
+    }
+
+    function renderShop(opts = {}) {
+        if (opts && opts.category) currentShopFilter = opts.category;
+
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+
+        const filter = document.getElementById('filter-category');
+        filter.innerHTML =
+            '<option value="all">All categories</option>' +
+            CATEGORIES.map(
+                (c) => `<option value="${c.id}">${c.title}</option>`
+            ).join('');
+
+        filter.value = currentShopFilter || 'all';
+        filter.onchange = function () {
+            currentShopFilter = this.value;
+            renderShop();
+        };
+
+        const filtered =
+            currentShopFilter === 'all'
+                ? PRODUCTS
+                : PRODUCTS.filter((p) => p.category === currentShopFilter);
+
+        if (filtered.length === 0)
+            grid.innerHTML = '<p class="text-muted">No products in this category.</p>';
+
+        filtered.forEach((p) => {
+            const col = document.createElement('div');
+            col.className = 'col-md-4 mb-4';
+
+            col.innerHTML = `
+      <div class="card product-card p-3">
+        <img src="${p.images[0]}" class="img-fluid mb-3 rounded" alt="${p.title}">
+        <h5>${p.title}</h5>
+        <p class="text-muted small">${p.desc}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <strong>${formatPriceBWP(p.price)}</strong><br>
+            <small class="text-muted">In stock:
+              <span class="stock-count" data-id="${p.id}">${p.stock}</span>
+            </small>
+          </div>
+          <div>
+            <button class="btn btn-dark btn-sm" onclick="addToCart('${p.id}')">Add to cart</button>
+          </div>
+        </div>
+      </div>`;
+            grid.appendChild(col);
+        });
+    }
+
+
+    /* CATEGORY page */
+    function renderCategory(catId){
+        const cat = CATEGORIES.find(c=>c.id===catId) || {title:'Category'};
+        document.getElementById('category-title').textContent = cat.title;
+        const list = document.getElementById('category-products'); list.innerHTML='';
+        const items = PRODUCTS.filter(p=>p.category===catId);
+        if(items.length===0) list.innerHTML = '<p class="text-muted">No items yet.</p>';
+        items.forEach(p=>{
+            const col = document.createElement('div'); col.className='col-md-4 mb-3';
+            col.innerHTML = `
+      <div class="card p-3">
+        <img src="${p.images[0]}" class="img-fluid rounded mb-2" alt="${p.title}">
+        <h5>${p.title}</h5>
+        <p>${p.desc}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small>Stock: <span class="stock-count" data-id="${p.id}">${p.stock}</span></small>
+          <div><button class="btn btn-dark btn-sm" onclick="addToCart('${p.id}')">Add to cart</button></div>
+        </div>
+      </div>`;
+            list.appendChild(col);
+        });
+    }
+
+    /* ===========================
+       RECIPES: list & detail
+       =========================== */
+    /* ===========================
+       RECIPES: list & detail (each category has its own single image placeholder)
+       =========================== */
+    function renderRecipes() {
+      const list = document.getElementById('recipes-list');
+      list.innerHTML = '';
+      const recipes = getRecipes();
+
+      if (recipes.length === 0) {
+        list.innerHTML = '<p class="text-muted">No recipes yet.</p>';
+        return;
+      }
+
+      recipes.forEach(r => {
+        // Assign one unique placeholder per category
+        let img = '/images/placeholder.jpg';
+        if (r.title.toLowerCase().includes('vanilla')) {
+          img = '/images/French-toast-4-hero-800x450.webp';
+        } else if (r.title.toLowerCase().includes('strawberry')) {
+          img = '/images/Strawberry-Daiquiri-3.jpg';
+        } else if (r.title.toLowerCase().includes('cushion')) {
+          img = '/images/cushion_care_header.webp.jpeg';
+        }
+
+        const col = document.createElement('div');
+        col.className = 'col-md-6 mb-3';
+        col.innerHTML = `
+      <div class="card p-2">
+        <div class="d-flex gap-3 align-items-start">
+          <img src="${img}" style="width:130px;height:85px;object-fit:cover;border-radius:8px;">
+          <div>
+            <h5>${r.title}</h5>
+            <p class="text-muted small">${r.category}</p>
+            <p class="mb-2">${(r.content || '').substring(0, 120)}...</p>
+            <button class="btn btn-outline-secondary btn-sm recipe-open-btn" data-id="${r.id}">
+              Open
+            </button>
+          </div>
+        </div>
+      </div>`;
+        list.appendChild(col);
+      });
+
+      document.querySelectorAll('.recipe-open-btn').forEach(b =>
+        b.addEventListener('click', () => routeTo('recipe-detail', { id: b.dataset.id }))
+      );
+    }
+
+    function renderRecipeDetail(id) {
+      const recipe = getRecipes().find(r => r.id === id);
+      const titleEl = document.getElementById('recipe-title');
+      const contentEl = document.getElementById('recipe-content');
+
+      if (!recipe) {
+        titleEl.textContent = 'Not Found';
+        contentEl.innerHTML = '<p class="text-muted">Recipe not found.</p>';
+        return;
+      }
+
+      titleEl.textContent = recipe.title;
+
+      // Single image placeholder per category
+      let img = '/images/placeholder.jpg';
+      if (recipe.title.toLowerCase().includes('vanilla')) {
+        img = '/images/French-toast-4-hero-800x450.webp';
+      } else if (recipe.title.toLowerCase().includes('strawberry')) {
+        img = '/images/Strawberry-Daiquiri-3.jpg';
+      } else if (recipe.title.toLowerCase().includes('cushion')) {
+        img = '/images/cushion_care_header.webp.jpeg';
+      }
+
+      contentEl.innerHTML = `
+    <div class="mb-3">
+      <img src="${img}" style="max-width:300px;border-radius:10px;">
+    </div>
+    <h5 class="mt-0">Category: ${recipe.category}</h5>
+    <pre style="white-space:pre-wrap;font-family:inherit">${recipe.content}</pre>
+  `;
+    }
+
+    /* ===========================
+       CART + Checkout + Receipts + Orders (user-linked)
+       =========================== */
+    /* ===========================
+   CART + CHECKOUT (Pula currency)
+   =========================== */
+
+    function formatPriceBWP(amount) {
+        // Format numbers as Pula currency, e.g. P120.00
+        return amount.toLocaleString('en-BW', { style: 'currency', currency: 'BWP' });
+    }
+
+    function updateCartCount() {
+        const cart = getCart();
+        const count = Object.values(cart).reduce((a, b) => a + b, 0);
+        document.getElementById('cart-count').textContent = count;
+    }
+
+    function addToCart(id, qty = 1) {
+        const p = PRODUCTS.find((x) => x.id === id);
+        if (!p) return alert('No such product');
+        const cart = getCart();
+        cart[id] = (cart[id] || 0) + qty;
+        if (cart[id] > p.stock) {
+            alert('Exceeded stock');
+            cart[id] = p.stock;
+        }
+        saveCart(cart);
+        alert('Added to cart');
+        updateCartCount();
+    }
+
+    function renderCart() {
+        const container = document.getElementById('cart-contents');
+        const cart = getCart();
+        const user = getCurrentUser();
+
+        if (Object.keys(cart).length === 0) {
+            container.innerHTML = '<p>Your cart is empty.</p>';
+            return;
+        }
+
+        let html = '<div class="list-group">';
+        let total = 0;
+
+        for (const id in cart) {
+            const p = PRODUCTS.find((x) => x.id === id);
+            const q = cart[id];
+            total += q * p.price;
+
+            html += `
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>${p.title}</strong><br>
+          <small>${q} × ${formatPriceBWP(p.price)}</small>
+        </div>
+        <div>${formatPriceBWP(q * p.price)}</div>
+      </div>`;
+        }
+
+        html += `</div>
+    <div class="mt-3"><strong>Total: ${formatPriceBWP(total)}</strong></div>
+    <div class="mt-3">
+      <button class="btn btn-dark" id="demo-checkout">Demo Checkout</button>
+      <button class="btn btn-outline-danger ms-2" id="clear-cart-btn">Clear Cart</button>
+    </div>`;
+
+        container.innerHTML = html;
+
+        document
+            .getElementById('demo-checkout')
+            .addEventListener('click', demoCheckoutFlow);
+
+        document
+            .getElementById('clear-cart-btn')
+            .addEventListener('click', () => {
+                if (confirm('Clear cart?')) {
+                    clearCart();
+                    renderCart();
+                    updateCartCount();
+                }
+            });
+    }
+
+    function demoCheckoutFlow() {
+        const user = getCurrentUser();
+        if (!user) {
+            alert(
+                'Please sign in to complete checkout — your order will be linked to your account.'
+            );
+            document.getElementById('signin-btn').click();
+            return;
+        }
+
+        const container = document.getElementById('cart-contents');
+        const cart = getCart();
+
+        if (Object.keys(cart).length === 0) {
+            container.innerHTML = '<p>Your cart is empty.</p>';
+            return;
+        }
+
+        let total = 0;
+        const items = [];
+
+        for (const id in cart) {
+            const p = PRODUCTS.find((x) => x.id === id);
+            items.push({ id, title: p.title, qty: cart[id], price: p.price });
+            total += cart[id] * p.price;
+        }
+
+        container.innerHTML = `
+    <div class="card p-3">
+      <h5>Demo Payment — Review Order</h5>
+      <div><strong>User:</strong> ${user.username} • ${user.email}</div>
+      <div class="mt-2"><strong>Items:</strong>
+        <ul>
+          ${items
+            .map(
+                (it) =>
+                    `<li>${it.qty} × ${it.title} — ${formatPriceBWP(
+                        it.qty * it.price
+                    )}</li>`
+            )
+            .join('')}
+        </ul>
+      </div>
+      <div><strong>Total: ${formatPriceBWP(total)}</strong></div>
+      <div class="mt-3">
+        <label>Address (optional)</label>
+        <input id="pay-address" class="form-control">
+      </div>
+      <div class="mt-3 d-flex gap-2">
+        <button id="pay-submit" class="btn btn-dark">Pay (Demo)</button>
+        <button id="pay-cancel" class="btn btn-outline-secondary">Cancel</button>
+      </div>
+    </div>`;
+
+        document.getElementById('pay-cancel').addEventListener('click', renderCart);
+
+        document.getElementById('pay-submit').addEventListener('click', () => {
+            const address = document.getElementById('pay-address').value.trim();
+
+            // simulate payment success
+            const orders = getOrders();
+            const orderId = 'ORD' + Date.now().toString().slice(-8);
+            const order = {
+                id: orderId,
+                username: user.username,
+                email: user.email,
+                address,
+                items,
+                total,
+                status: 'Processing',
+                time: Date.now(),
+                receipt: {
+                    issuedAt: Date.now(),
+                    to: user,
+                    items,
+                    total,
+                },
+            };
+
+            orders.push(order);
+            saveOrders(orders);
+
+            // reduce stock
+            items.forEach((it) => {
+                const p = PRODUCTS.find((x) => x.id === it.id);
+                if (p) p.stock = Math.max(0, p.stock - it.qty);
+            });
+
+            // clear cart
+            clearCart();
+            updateCartCount();
+
+            alert(
+                `Payment successful (demo). Order ID: ${orderId}\nA digital receipt has been issued and linked to your account.`
+            );
+
+            routeTo('orders');
+            setTimeout(() => {
+                document.getElementById('order-search').value = orderId;
+                document.getElementById('order-search-btn').click();
+            }, 200);
+        });
+    }
+
+
+    /* ===========================
+       ORDERS: list, track, receipt view, simulate status progression
+       =========================== */
+    function renderOrders() {
+        const out = document.getElementById('orders-list');
+        out.innerHTML = '';
+        const orders = getOrders().slice().reverse();
+
+        if (orders.length === 0) {
+            out.innerHTML = '<p class="text-muted">No orders yet.</p>';
+            return;
+        }
+
+        orders.forEach(o => out.innerHTML += orderCardHtml(o));
+
+        document.getElementById('order-search-btn').onclick = function () {
+            const q = document.getElementById('order-search').value.trim();
+            const filtered = q ? getOrders().filter(o => o.id === q) : getOrders();
+            const olist = document.getElementById('orders-list');
+            olist.innerHTML = '';
+            if (filtered.length === 0)
+                olist.innerHTML = '<p class="text-muted">No matching orders found.</p>';
+            filtered.forEach(o => olist.innerHTML += orderCardHtml(o));
+        };
+    }
+
+    function orderCardHtml(o) {
+        const time = new Date(o.time).toLocaleString();
+
+        return `
+    <div class="card p-3 mb-3 shadow-sm">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <strong>Order ${o.id}</strong><br>
+          <small class="text-muted">${time}</small>
+        </div>
+        <span class="badge bg-secondary">${o.status || 'Processing'}</span>
+      </div>
+
+      <div class="mt-2"><strong>${o.username}</strong> • ${o.email}</div>
+
+      <div class="mt-2">
+        <ul>
+          ${o.items.map(it => `<li>${it.qty} × ${it.title} — P${(it.qty * it.price).toFixed(2)}</li>`).join('')}
+        </ul>
+      </div>
+
+      <div><strong>Total: P${o.total.toFixed(2)}</strong></div>
+
+      <div class="mt-3 d-flex gap-2">
+        <button class="btn btn-outline-dark btn-sm" onclick="showReceipt('${o.id}')">View Receipt</button>
+        <button class="btn btn-outline-primary btn-sm" onclick="trackOrder('${o.id}')">Track Order</button>
+      </div>
+
+      <div id="tracking-${o.id}" class="mt-3"></div>
+    </div>
+  `;
+    }
+
+    function showReceipt(orderId) {
+        const o = getOrders().find(x => x.id === orderId);
+        if (!o) return alert('Order not found');
+
+        let receipt = `Order: ${o.id}\nName: ${o.username}\nEmail: ${o.email}\nTime: ${new Date(o.time).toLocaleString()}\n\nItems:\n`;
+        o.items.forEach(it => receipt += `${it.qty} × ${it.title} — P${(it.qty * it.price).toFixed(2)}\n`);
+        receipt += `\nTotal: P${o.total.toFixed(2)}\n\nStatus: ${o.status}\n\nThis is a demo digital receipt.`;
+
+        const w = window.open('', '_blank', 'width=600,height=700');
+        w.document.write(`<pre style="font-family:inherit">${receipt}</pre>`);
+        w.document.title = `Receipt ${o.id}`;
+    }
+
+    // --- SMART ORDER TRACKING SYSTEM ---
+    function trackOrder(orderId) {
+        const container = document.getElementById(`tracking-${orderId}`);
+        container.innerHTML = `
+    <div class="card bg-light p-3 border">
+      <h6 class="mb-2">Order Tracking</h6>
+      <div id="progress-${orderId}" class="progress mb-2" style="height:10px;">
+        <div class="progress-bar bg-success" style="width: 0%;"></div>
+      </div>
+      <p id="status-text-${orderId}" class="text-muted small">Starting tracking...</p>
+    </div>
+  `;
+
+        const stages = [
+            { text: "🧵 Your order is being prepared", percent: 25 },
+            { text: "🚚 Your order has left the shop", percent: 50 },
+            { text: "🏡 Your order is almost there", percent: 75 },
+            { text: "🎉 Your order has been delivered", percent: 100 }
+        ];
+
+        let step = 0;
+        const bar = document.querySelector(`#progress-${orderId} .progress-bar`);
+        const text = document.getElementById(`status-text-${orderId}`);
+
+        function updateStage() {
+            const s = stages[step];
+            bar.style.width = s.percent + '%';
+            text.textContent = s.text;
+
+            if (step < stages.length - 1) {
+                step++;
+                setTimeout(updateStage, 3000); // progress every 3 seconds
+            } else {
+                text.classList.remove('text-muted');
+                text.classList.add('text-success');
+                text.textContent = "🎉 Your order has been delivered — thank you for shopping with Cotton Cloud!";
+            }
+        }
+
+        updateStage();
+    }
+
+    /* ===========================
+       NEWSFEED: polls + heart reactions + threaded comments
+       =========================== */
+
+    function renderFeed() {
+      const feed = document.getElementById('feed-list');
+      feed.innerHTML = '';
+      const posts = getFeed().slice().reverse();
+
+      if (posts.length === 0) {
+        feed.innerHTML = '<p class="text-muted">No posts yet. Be the first to share!</p>';
+        return;
+      }
+
+      posts.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'mb-3 post p-3 rounded';
+        div.style.backgroundColor = '#f7f3ef'; // light beige background
+
+        // --- Reaction (only heart) ---
+        const reactions = post.reactions || {};
+        const heartCount = Object.values(reactions).filter(r => r === '❤️').length;
+        const user = getCurrentUser();
+        const voter = user ? user.username : 'guest';
+        const userReacted = reactions[voter] === '❤️';
+        const heartBtn = `<button class="btn btn-sm ${userReacted ? 'btn-danger' : 'btn-outline-danger'}" onclick="castReaction('${post.id}','❤️')">❤️ ${heartCount}</button>`;
+
+        // --- Poll system (if post has pollOptions) ---
+        let pollHtml = '';
+        if (post.pollOptions && post.pollOptions.length) {
+          const totalVotes = Object.values(post.pollVotes || {}).length;
+          pollHtml = '<div class="mt-2">';
+          post.pollOptions.forEach(opt => {
+            const count = Object.values(post.pollVotes || {}).filter(v => v === opt).length;
+            const percent = totalVotes ? Math.round((count / totalVotes) * 100) : 0;
+            pollHtml += `
+                    <div class="border rounded p-2 mb-1 d-flex justify-content-between align-items-center">
+                        <span>${opt}</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="votePoll('${post.id}','${opt}')">Vote</button>
+                            <small class="text-muted ms-2">${count} votes (${percent}%)</small>
+                        </div>
+                    </div>`;
+          });
+          pollHtml += '</div>';
+        }
+
+        // --- Comments (with replies) ---
+        let commentsHtml = '';
+        (post.comments || []).forEach((c, idx) => {
+          commentsHtml += `
+                <div class="border-top mt-2 pt-2">
+                    <strong>${c.name}</strong> <small class="text-muted">${new Date(c.time).toLocaleString()}</small>
+                    <p>${c.text}</p>
+                    <button class="btn btn-sm btn-link text-muted p-0" onclick="toggleReplyBox('${post.id}',${idx})">Reply</button>
+                    <div id="reply-box-${post.id}-${idx}" style="display:none" class="mt-1">
+                        <input placeholder="Write a reply" id="reply-input-${post.id}-${idx}" class="form-control form-control-sm mb-1">
+                        <button class="btn btn-sm btn-dark" onclick="addReply('${post.id}',${idx})">Post</button>
+                    </div>
+                    ${(c.replies || []).map(r => `
+                        <div class="ms-4 mt-2 border-start ps-2">
+                            <strong>${r.name}</strong> <small class="text-muted">${new Date(r.time).toLocaleString()}</small>
+                            <p>${r.text}</p>
+                        </div>
+                    `).join('')}
+                </div>`;
+        });
+
+        const imgHtml = post.image ? `<img src="${post.image}" class="img-fluid rounded mb-2" alt="post image">` : '';
+
+        div.innerHTML = `
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <strong>${post.name}</strong><br>
+                    <small class="text-muted">${new Date(post.time).toLocaleString()}</small>
+                </div>
+                <div>${heartBtn}</div>
+            </div>
+            <p class="mt-2">${post.text || ''}</p>
+            ${imgHtml}
+            ${pollHtml}
+            <div id="comments-${post.id}" class="mt-2">${commentsHtml}</div>
+            <div class="mt-2 d-flex gap-2">
+                <input placeholder="Write a comment" id="comment-input-${post.id}" class="form-control form-control-sm">
+                <button class="btn btn-sm btn-dark" onclick="addComment('${post.id}')">Comment</button>
+            </div>
+        `;
+        feed.appendChild(div);
+      });
+    }
+
+    // --- Reaction system (❤️ only) ---
+    function castReaction(postId, reaction) {
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser();
+      const voter = user ? user.username : 'guest';
+      p.reactions = p.reactions || {};
+
+      // Toggle heart
+      if (p.reactions[voter] === reaction) delete p.reactions[voter];
+      else p.reactions[voter] = reaction;
+
+      saveFeed(posts);
+      renderFeed();
+    }
+
+    // --- Poll voting ---
+    function votePoll(postId, option) {
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser();
+      const voter = user ? user.username : 'guest';
+      p.pollVotes = p.pollVotes || {};
+      p.pollVotes[voter] = option;
+      saveFeed(posts);
+      renderFeed();
+    }
+
+    // --- Comments + Replies ---
+    function addComment(postId) {
+      const input = document.getElementById('comment-input-' + postId);
+      const text = input.value.trim();
+      if (!text) return;
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser() || { username: 'Guest' };
+      p.comments = p.comments || [];
+      p.comments.push({ name: user.username, text, time: Date.now(), replies: [] });
+      saveFeed(posts);
+      input.value = '';
+      renderFeed();
+    }
+
+    function toggleReplyBox(postId, commentIndex) {
+      const box = document.getElementById(`reply-box-${postId}-${commentIndex}`);
+      if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addReply(postId, commentIndex) {
+      const input = document.getElementById(`reply-input-${postId}-${commentIndex}`);
+      const text = input.value.trim();
+      if (!text) return;
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser() || { username: 'Guest' };
+      p.comments[commentIndex].replies = p.comments[commentIndex].replies || [];
+      p.comments[commentIndex].replies.push({ name: user.username, text, time: Date.now() });
+      saveFeed(posts);
+      renderFeed();
+    }
+
+    // --- Post submit (normal or poll post) ---
+    document.getElementById('post-submit').addEventListener('click', () => {
+      const text = document.getElementById('post-text').value.trim();
+      const file = document.getElementById('post-image').files[0];
+      const pollInput = document.getElementById('poll-options');
+      const pollOptions = pollInput ? pollInput.value.split(',').map(o => o.trim()).filter(o => o) : [];
+      const user = getCurrentUser() || { username: 'Guest' };
+
+      if (!text && !file && !pollOptions.length) return alert('Write something or attach an image or poll');
+
+      const posts = getFeed();
+      const id = 'post_' + Date.now();
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        posts.push({
+          id,
+          name: user.username,
+          text,
+          image: file ? e.target.result : null,
+          time: Date.now(),
+          reactions: {},
+          comments: [],
+          pollOptions: pollOptions.length ? pollOptions : null,
+          pollVotes: {}
+        });
+        saveFeed(posts);
+        document.getElementById('post-text').value = '';
+        document.getElementById('post-image').value = '';
+        if (pollInput) pollInput.value = '';
+        renderFeed();
+      };
+
+      if (file) reader.readAsDataURL(file);
+      else reader.onload();
+    });
+    /* ===========================
+     NEWSFEED: polls + reactions + comments
+     =========================== */
+
+    function renderFeed() {
+      const feed = document.getElementById('feed-list');
+      feed.innerHTML = '';
+      const posts = getFeed().slice().reverse();
+
+      if (posts.length === 0) {
+        feed.innerHTML = '<p class="text-muted">No posts yet. Be the first to share!</p>';
+        return;
+      }
+
+      posts.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'mb-3 post card p-3';
+        div.style.backgroundColor = '#f8f5f0';
+        div.style.border = 'none';
+        div.style.borderRadius = '12px';
+
+        // =============== POLL POSTS ===============
+        if (post.isPoll) {
+          let totalVotes = Object.keys(post.votes || {}).length;
+          let pollHtml = `<h5>${post.question}</h5>`;
+
+          post.options.forEach((opt, i) => {
+            const votes = Object.values(post.votes || {}).filter(v => v === i).length;
+            const percent = totalVotes ? Math.round((votes / totalVotes) * 100) : 0;
+            pollHtml += `
+                  <div class="mb-2 p-2 border rounded" style="background-color:#f8f5f0;">
+                      <button class="btn btn-sm btn-outline-dark w-100 text-start" onclick="castPollVote('${post.id}', ${i})">
+                        ${opt} — ${percent}% (${votes} votes)
+                      </button>
+                  </div>`;
+          });
+
+          div.innerHTML = `
+                <div class="d-flex justify-content-between align-items-start">
+                    <div><strong>${post.name}</strong><br><small class="text-muted">${new Date(post.time).toLocaleString()}</small></div>
+                </div>
+                <div class="mt-2">${pollHtml}</div>
+            `;
+          feed.appendChild(div);
+          return;
+        }
+
+        // =============== REGULAR POSTS ===============
+        const reactions = post.reactions || {};
+        const heart = '❤️';
+        const count = Object.values(reactions).filter(v => v === heart).length;
+        const imgHtml = post.image ? `<img src="${post.image}" class="img-fluid rounded mb-2" alt="post image">` : '';
+
+        // Comments + Replies
+        let commentsHtml = '';
+        (post.comments || []).forEach((c, ci) => {
+          commentsHtml += `
+              <div class="border-top mt-2 pt-2">
+                <strong>${c.name}</strong> <small class="text-muted">${new Date(c.time).toLocaleString()}</small>
+                <p>${c.text}</p>
+                <div id="replies-${post.id}-${ci}" class="ms-3">
+                    ${(c.replies || []).map(r => `
+                        <div class="border-start ps-2 mb-1">
+                            <strong>${r.name}</strong> <small class="text-muted">${new Date(r.time).toLocaleString()}</small>
+                            <p>${r.text}</p>
+                        </div>`).join('')}
+                </div>
+                <div class="d-flex gap-2 mt-1">
+                    <input placeholder="Reply..." id="reply-input-${post.id}-${ci}" class="form-control form-control-sm">
+                    <button class="btn btn-sm btn-secondary" onclick="addReply('${post.id}', ${ci})">Reply</button>
+                </div>
+              </div>`;
+        });
+
+        div.innerHTML = `
+            <div class="d-flex justify-content-between align-items-start">
+                <div><strong>${post.name}</strong><br><small class="text-muted">${new Date(post.time).toLocaleString()}</small></div>
+            </div>
+            <p class="mt-2">${post.text || ''}</p>
+            ${imgHtml}
+            <div class="mb-2">
+                <button class="btn btn-sm btn-outline-danger" onclick="castReaction('${post.id}','${heart}')">${heart} ${count}</button>
+            </div>
+            <div id="comments-${post.id}">${commentsHtml}</div>
+            <div class="mt-2 d-flex gap-2">
+                <input placeholder="Write a comment" id="comment-input-${post.id}" class="form-control form-control-sm">
+                <button class="btn btn-sm btn-dark" onclick="addComment('${post.id}')">Comment</button>
+            </div>
+        `;
+        feed.appendChild(div);
+      });
+    }
+
+    /* ===========================
+       POLL SYSTEM
+       =========================== */
+
+    function createPoll() {
+      const question = document.getElementById('poll-question').value.trim();
+      const opt1 = document.getElementById('poll-opt1').value.trim();
+      const opt2 = document.getElementById('poll-opt2').value.trim();
+      const opt3 = document.getElementById('poll-opt3').value.trim();
+
+      if (!question || !opt1 || !opt2)
+        return alert('Please enter at least a question and two options.');
+
+      const user = getCurrentUser() || { username: 'Guest' };
+      const posts = getFeed();
+      const id = 'poll_' + Date.now();
+
+      const poll = {
+        id,
+        name: user.username,
+        question,
+        options: [opt1, opt2, opt3].filter(Boolean),
+        votes: {}, // { username: optionIndex }
+        time: Date.now(),
+        isPoll: true
+      };
+
+      posts.push(poll);
+      saveFeed(posts);
+
+      // Clear inputs
+      document.getElementById('poll-question').value = '';
+      document.getElementById('poll-opt1').value = '';
+      document.getElementById('poll-opt2').value = '';
+      document.getElementById('poll-opt3').value = '';
+
+      renderFeed();
+    }
+
+    function castPollVote(postId, optionIndex) {
+      const posts = getFeed();
+      const poll = posts.find(p => p.id === postId);
+      if (!poll) return;
+
+      const user = getCurrentUser() || { username: 'Guest' };
+      poll.votes = poll.votes || {};
+
+      // One vote per user
+      poll.votes[user.username] = optionIndex;
+
+      saveFeed(posts);
+      renderFeed();
+    }
+
+    /* ===========================
+       REACTIONS (❤️ only)
+       =========================== */
+
+    function castReaction(postId, reaction) {
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser();
+      const voter = user ? user.username : 'guest';
+      p.reactions = p.reactions || {};
+
+      // Toggle reaction
+      if (p.reactions[voter] === reaction) delete p.reactions[voter];
+      else p.reactions[voter] = reaction;
+
+      saveFeed(posts);
+      renderFeed();
+    }
+
+    /* ===========================
+       COMMENTS + REPLIES
+       =========================== */
+
+    function addComment(postId) {
+      const input = document.getElementById('comment-input-' + postId);
+      const text = input.value.trim();
+      if (!text) return;
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser() || { username: 'Guest' };
+      p.comments = p.comments || [];
+      p.comments.push({ name: user.username, text, time: Date.now(), replies: [] });
+      saveFeed(posts);
+      input.value = '';
+      renderFeed();
+    }
+
+    function addReply(postId, commentIndex) {
+      const input = document.getElementById(`reply-input-${postId}-${commentIndex}`);
+      const text = input.value.trim();
+      if (!text) return;
+      const posts = getFeed();
+      const p = posts.find(x => x.id === postId);
+      if (!p) return;
+      const user = getCurrentUser() || { username: 'Guest' };
+      p.comments[commentIndex].replies = p.comments[commentIndex].replies || [];
+      p.comments[commentIndex].replies.push({ name: user.username, text, time: Date.now() });
+      saveFeed(posts);
+      renderFeed();
+    }
+
+    /* ===========================
+       POST SUBMIT
+       =========================== */
+
+    document.getElementById('post-submit').addEventListener('click', () => {
+      const text = document.getElementById('post-text').value.trim();
+      const file = document.getElementById('post-image').files[0];
+      const user = getCurrentUser() || { username: 'Guest' };
+      if (!text && !file) return alert('Write something or attach an image');
+      const posts = getFeed();
+      const id = 'post_' + Date.now();
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        posts.push({
+          id,
+          name: user.username,
+          text,
+          image: file ? e.target.result : null,
+          time: Date.now(),
+          reactions: {},
+          comments: []
+        });
+        saveFeed(posts);
+        document.getElementById('post-text').value = '';
+        document.getElementById('post-image').value = '';
+        renderFeed();
+      };
+      if (file) reader.readAsDataURL(file);
+      else reader.onload();
+    });
+
+    /* ===========================
+       CARE guide, CONTACT (unchanged)
+       =========================== */
+    function renderCare(){
+        const list = document.getElementById('care-list'); list.innerHTML='';
+        for(const [k,v] of Object.entries(CARE_GUIDE)){
+            const cat = CATEGORIES.find(c=>c.id===k) || {title:k};
+            const div = document.createElement('div'); div.className='col';
+            div.innerHTML = `<div class="card p-3"><h5>${cat.title}</h5><p>${v}</p></div>`;
+            list.appendChild(div);
+        }
+    }
+    document.getElementById('contact-send').addEventListener('click', ()=>{
+        const name=document.getElementById('contact-name').value.trim();
+        const email=document.getElementById('contact-email').value.trim();
+        const msg=document.getElementById('contact-message').value.trim();
+        if(!name||!email||!msg) return alert('Please fill all fields');
+        alert('Message sent (demo). For production integrate a backend form handler.');
+    });
+
+    /* ===========================
+       Initialization
+       =========================== */
+    updateUIForUser();
+    renderHome();
+    updateCartCount();
+    routeTo('home');
+
+</script>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section text-center py-5" id="newsletter">
+    <div class="container">
+        <h2 class="mb-3">Join Our Newsletter</h2>
+        <p class="text-muted mb-4">
+            Be the first to know about new arrivals, exclusive offers &amp; home styling tips.
+        </p>
+        <form id="newsletterForm" class="d-flex justify-content-center flex-wrap gap-2">
+            <input type="email" id="newsletterEmail" class="form-control w-auto px-3" placeholder="Enter your email" required="">
+            <button type="submit" class="btn btn-dark px-4">Subscribe</button>
+        </form>
+        <div id="newsletterMessage" class="mt-3"></div>
+    </div>
+</section>
+
+<style>
+    .newsletter-section {
+        background-color: #f5efe6; /* Light beige */
+        color: #333;
+        border-top: 1px solid #d8d3cb;
+    }
+    .newsletter-section h2 {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    .newsletter-section p {
+        color: #666;
+    }
+    .newsletter-section input {
+        border-radius: 30px;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        min-width: 250px;
+    }
+    .newsletter-section button {
+        border-radius: 30px;
+        background-color: #555;
+        color: #fff;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .newsletter-section button:hover {
+        background-color: #333;
+        transform: scale(1.05);
+    }
+</style>
+
+<script>
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value;
+        const message = document.getElementById('newsletterMessage');
+
+        // Demo feedback
+        message.innerHTML = `<div class="alert alert-success mt-3">Thank you for subscribing, ${email}!</div>`;
+        this.reset();
+    });
+</script>
+
+
+
+<script>
+    (function() {
+        var ws = new WebSocket('ws://' + window.location.host +
+            '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+            'referrer=' + encodeURIComponent(window.location.pathname));
+        ws.onmessage = function (msg) {
+            if (msg.data === 'reload') {
+                window.location.reload();
+            }
+            if (msg.data.startsWith('update-css ')) {
+                var messageId = msg.data.substring(11);
+                var links = document.getElementsByTagName('link');
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    if (link.rel !== 'stylesheet') continue;
+                    var clonedLink = link.cloneNode(true);
+                    var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+                    if (newHref !== link.href) {
+                        clonedLink.href = newHref;
+                    }
+                    else {
+                        var indexOfQuest = newHref.indexOf('?');
+                        if (indexOfQuest >= 0) {
+                            // to support ?foo#hash
+                            clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
+                                newHref.substring(indexOfQuest + 1);
+                        }
+                        else {
+                            clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                        }
+                    }
+                    link.replaceWith(clonedLink);
+                }
+            }
+        };
+    })();
+</script></body></html>
