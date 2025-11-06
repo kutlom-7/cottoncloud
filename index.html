@@ -115,7 +115,7 @@
 <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#" data-route="home">
-            <img src="/images/cc-logo-black.png" alt="Cotton Cloud" class="brand-logo me-2">
+            <img src="./images/cc-logo-black.png" alt="Cotton Cloud" class="brand-logo me-2">
             <strong style="color:var(--muted)"></strong>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -195,9 +195,9 @@
             <div class="col-lg-6">
                 <div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner rounded-4 overflow-hidden shadow-sm">
-                        <div class="carousel-item active"><img src="/images/media-result-20251022-f0e9d189-59af-4097-ab25-49aeda28923f.png" class="d-block w-100" alt="Slide 1"></div>
-                        <div class="carousel-item"><img src="/images/media-result-20251022-6e782d03-7862-43b0-a91f-64ecf1aaa268.png" class="d-block w-100" alt="Slide 2"></div>
-                        <div class="carousel-item"><img src="/images/media-result-20251022-5bec8215-47ae-4dae-b54d-69827cc33f77 2.png" class="d-block w-100" alt="Slide 3"></div>
+                        <div class="carousel-item active"><img src="./images/media-result-20251022-f0e9d189-59af-4097-ab25-49aeda28923f.png" class="d-block w-100" alt="Slide 1"></div>
+                        <div class="carousel-item"><img src="./images/media-result-20251022-6e782d03-7862-43b0-a91f-64ecf1aaa268.png" class="d-block w-100" alt="Slide 2"></div>
+                        <div class="carousel-item"><img src="./images/media-result-20251022-5bec8215-47ae-4dae-b54d-69827cc33f77 2.png" class="d-block w-100" alt="Slide 3"></div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
                     <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
@@ -392,7 +392,7 @@
           <div class="card product-card p-3">
             <div class="row g-0">
               <div class="col-5">
-                <img src="images/Strawberry-Daiquiri-3.jpg"
+                <img src="./images/Strawberry-Daiquiri-3.jpg"
                      class="img-fluid rounded"
                      alt="Strawberry Daiquiri">
               </div>
@@ -424,7 +424,7 @@
           <div class="card product-card p-3">
             <div class="row g-0">
               <div class="col-5">
-                <img src="images/cb22_secondary4.webp.jpeg"
+                <img src="./images/cb22_secondary4.webp.jpeg"
                      class="img-fluid rounded"
                      alt="Table Setting for 4">
               </div>
@@ -1260,11 +1260,11 @@ Blend with ice until smooth. Garnish with strawberry.</pre>
       filtered.forEach(item => {
         let img = 'images/placeholder.jpg';
         if (item.title.toLowerCase().includes('vanilla')) {
-          img = 'images/French-toast-4-hero-800x450.webp';
+          img = './images/French-toast-4-hero-800x450.webp';
         } else if (item.title.toLowerCase().includes('strawberry')) {
-          img = 'images/Strawberry-Daiquiri-3.jpg';
+          img = './images/Strawberry-Daiquiri-3.jpg';
         } else if (item.title.toLowerCase().includes('cushion')) {
-          img = 'images/cushion_care_header.webp.jpeg';
+          img = './images/cushion_care_header.webp.jpeg';
         }
 
         const displayImg = item.image || img;
@@ -1519,11 +1519,11 @@ SHOP: filter & product lists (Add to cart only)
       // Single image placeholder per category
       let img = '/images/placeholder.jpg';
       if (recipe.title.toLowerCase().includes('vanilla')) {
-        img = '/images/French-toast-4-hero-800x450.webp';
+        img = './images/French-toast-4-hero-800x450.webp';
       } else if (recipe.title.toLowerCase().includes('strawberry')) {
-        img = '/images/Strawberry-Daiquiri-3.jpg';
+        img = './images/Strawberry-Daiquiri-3.jpg';
       } else if (recipe.title.toLowerCase().includes('cushion')) {
-        img = '/images/cushion_care_header.webp.jpeg';
+        img = './images/cushion_care_header.webp.jpeg';
       }
 
       contentEl.innerHTML = `
@@ -2390,18 +2390,18 @@ SHOP: filter & product lists (Add to cart only)
   const CURTAIN_TYPES = {
     "3-strand-blockout": [
       { name: "Classic 3-Strand Blockout", desc: "Elegant design with superior light blocking.", img: "window-blockout-curtain-taped-shrinkwrap-220-1-90-blockout-original-imahcrsgqk2kfkyq.jpeg.webp" },
-      { name: "Textured 3-Strand Blockout", desc: "Adds a stylish texture to your interiors.", img: "images/dakota-ready-made-eyelet-curtains-silver.jpg.webp" },
-      { name: "Minimalist 3-Strand Blockout", desc: "Perfect for modern rooms with sleek finishes.", img: "images/christopher-mcmullen_weylands-steel-1.webp" }
+      { name: "Textured 3-Strand Blockout", desc: "Adds a stylish texture to your interiors.", img: "./images/dakota-ready-made-eyelet-curtains-silver.jpg.webp" },
+      { name: "Minimalist 3-Strand Blockout", desc: "Perfect for modern rooms with sleek finishes.", img: "./images/christopher-mcmullen_weylands-steel-1.webp" }
     ],
     "eyelet-blockout": [
-      { name: "Velvet Eyelet Blockout", desc: "Soft velvet touch for luxury and privacy.", img: "images/BP80595713-linen.jpg-SPOTWF-productHero.jpeg" },
-      { name: "Patterned Eyelet Blockout", desc: "Stylish designs that block sunlight efficiently.", img: "images/images copy.jpeg" },
-      { name: "Plain Eyelet Blockout", desc: "Simple and elegant blockout curtains.", img: "images/productHero-SPOTWF-BP80626093-natural.jpg" }
+      { name: "Velvet Eyelet Blockout", desc: "Soft velvet touch for luxury and privacy.", img: "./images/BP80595713-linen.jpg-SPOTWF-productHero.jpeg" },
+      { name: "Patterned Eyelet Blockout", desc: "Stylish designs that block sunlight efficiently.", img: "./images/images copy.jpeg" },
+      { name: "Plain Eyelet Blockout", desc: "Simple and elegant blockout curtains.", img: "./images/productHero-SPOTWF-BP80626093-natural.jpg" }
     ],
     "eyelet-sheer": [
-      { name: "Soft White Sheer", desc: "Delicate sheers that bring in natural light.", img: "images/Aalborg-white-sheer-eyelet-curtain-double-width-chrome-quickfit-curtains__30222.jpg" },
-      { name: "Patterned Sheer", desc: "Modern patterns for stylish interiors.", img: "images/white-sheer-curtain-cotton-look-eyelet-quickfit__51965.jpg" },
-      { name: "Linen Blend Sheer", desc: "Natural tones with a smooth sheer finish.", img: "images/Eyelet-Muslin-Sheer-Longer-Length-Curtain-135-W-x-250-L-NATURAL-509403892.jpg" }
+      { name: "Soft White Sheer", desc: "Delicate sheers that bring in natural light.", img: "./images/Aalborg-white-sheer-eyelet-curtain-double-width-chrome-quickfit-curtains__30222.jpg" },
+      { name: "Patterned Sheer", desc: "Modern patterns for stylish interiors.", img: "./images/white-sheer-curtain-cotton-look-eyelet-quickfit__51965.jpg" },
+      { name: "Linen Blend Sheer", desc: "Natural tones with a smooth sheer finish.", img: "./images/Eyelet-Muslin-Sheer-Longer-Length-Curtain-135-W-x-250-L-NATURAL-509403892.jpg" }
     ]
   };
 
